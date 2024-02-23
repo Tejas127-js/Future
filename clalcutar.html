@@ -1,0 +1,117 @@
+<html><head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color:  #193366;
+            margin: 0;
+        }
+        #calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 320px;
+            border:4px solid ghostwhite;
+        }
+        #result {
+            grid-column: span 4;
+            height: 80px;
+            text-align: right;
+            border: none;
+            outline: none;
+            font-size: 2em;
+            padding: 0 10px;
+        }
+        .button {
+            height: 60px;
+            border: none;
+            color: white;
+            font-size: 2em;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .number {
+            background-color: #333;
+        }
+        .operator {
+            background-color: #f57c00;
+        }
+        .equal {
+            grid-column: span 2;
+            background-color: #ffeb3b;
+        }
+        .clear {
+            grid-column: span 2;
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <input id="result" type="text" readonly="">
+        <button class="button number" onclick="appendNumber('1')">1</button>
+        <button class="button number" onclick="appendNumber('2')">2</button>
+        <button class="button number" onclick="appendNumber('3')">3</button>
+        <button class="button operator" onclick="calculate('+')">+</button>
+        <button class="button number" onclick="appendNumber('4')">4</button>
+        <button class="button number" onclick="appendNumber('5')">5</button>
+        <button class="button number" onclick="appendNumber('6')">6</button>
+        <button class="button operator" onclick="calculate('-')">-</button>
+        <button class="button number" onclick="appendNumber('7')">7</button>
+        <button class="button number" onclick="appendNumber('8')">8</button>
+        <button class="button number" onclick="appendNumber('9')">9</button>
+        <button class="button operator" onclick="calculate('*')">*</button>
+        <button class="button number" onclick="appendNumber('0')">0</button>
+        <button class="button clear" onclick="clearInput()">C</button>
+        <button class="button equal" onclick="calculateResult()">=</button>
+        <button class="button operator" onclick="calculate('/')">/</button>
+    </div>
+    <script>
+        var operation = null;
+        var previousNumber = null;
+
+        function appendNumber(number) {
+            document.getElementById('result').value += number;
+        }
+
+        function clearInput() {
+            document.getElementById('result').value = '';
+            operation = null;
+            previousNumber = null;
+        }
+
+        function calculate(op) {
+            previousNumber = parseFloat(document.getElementById('result').value);
+            document.getElementById('result').value = '';
+            operation = op;
+        }
+
+        function calculateResult() {
+            var currentNumber = parseFloat(document.getElementById('result').value);
+            switch(operation) {
+                case '+':
+                    document.getElementById('result').value = previousNumber + currentNumber;
+                    break;
+                case '-':
+                    document.getElementById('result').value = previousNumber - currentNumber;
+                    break;
+                case '*':
+                    document.getElementById('result').value = previousNumber * currentNumber;
+                    break;
+                case '/':
+                    document.getElementById('result').value = previousNumber / currentNumber;
+                    break;
+            }
+            operation = null;
+            previousNumber = null;
+        }
+    </script>
+
+
+</body></html>
